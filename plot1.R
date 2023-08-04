@@ -40,11 +40,11 @@ head(data)
 data2 <- row_to_names(data, row_number = "find_header", remove_rows_above = TRUE)
 
 #subset the data by 2007-02-01 and 2007-02-02
-data3 <- filter(data2, Date == "1/2/2007" | Date == "2/2/2007")
+tidy_data <- filter(data2, Date == "1/2/2007" | Date == "2/2/2007")
 
 
 #Combine Date column and Time column into datetime column formatted as POSIXct
-data3$datetime <- with(data3, as.POSIXct(paste(Date, Time), 
+tidy_data$datetime <- with(tidy_data, as.POSIXct(paste(Date, Time), 
                                  format = "%d/%m/%Y %H:%M:%S"))
                        
 ##################################
@@ -52,14 +52,15 @@ data3$datetime <- with(data3, as.POSIXct(paste(Date, Time),
 #Plot1 plots Golbal Avtive Power and frequency
 #Change Global_active_power to numeric
 #Use hist with labels
-#save file as a png 
+#save file as a png, close the connection 
 #################################
 
 #change variable Global_Active_power from chr to numeric
-data3$Global_active_power <- as.numeric(as.character(data3$Global_active_power))
+tidy_data$Global_active_power <- as.numeric(as.character(tidy_data$Global_active_power))
 
 #Create the histogram with labels
-hist(data3$Global_active_power,col ="red", main="Global Active Power", xlab = "Global Active Power (kilowatts)", ylab = "Frequency")
+hist(tidy_data$Global_active_power,col ="red", main="Global Active Power", xlab = "Global Active Power (kilowatts)", ylab = "Frequency")
 
 #Save the graph to a png file 480x480 pixels
-png(filename = "plot1.png", width=480, height=480, units="px")
+png(filename = "plot1.png", width=480, height=480)
+dev.off()
