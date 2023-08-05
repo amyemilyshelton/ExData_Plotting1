@@ -1,21 +1,5 @@
-#Plot 1 R script
+#Plot 2 R script
 ###############################
-#Step 1: Calculate rough estimate of memory usage
-#The website says the atributes are Real, so numeric, numeric data use 8 bytes 
-#per cell. In researching the different data types, time uses 3-5 bytes, 
-#dates use 4 bytes, so we will just use 8 bytes to estimate all of them
-#for the rough estimate, since the website says all are numeric data.
-#I will convert the date and times to date and time data later.
-#Referenced a lecture from Data Scientists Toolbox
-
-x <- 2075259*9*8  #calculate bytes
-y <- x/2^20 #calculate MB
-z <- y/2^10 #calculate GB
-z*2  #gives R twice the GB for memory usage
-
-#[1] 0.2783139
-#I will need .2783139 GB of memory. My computer is fine, it can handle it.
-
 #Load the packages I will be using, tidyverse includes dplyr, lubridate
 #Load janitor to change the 
 library(tidyverse)
@@ -46,22 +30,20 @@ tidy_data <- filter(data2, Date == "1/2/2007" | Date == "2/2/2007")
 #Combine Date column and Time column into datetime column formatted as POSIXct
 tidy_data$datetime <- with(tidy_data, as.POSIXct(paste(Date, Time), 
                                                  format = "%d/%m/%Y %H:%M:%S"))
+
+
+
 str(tidy_data)
 ##################################
 #Step 3 - make the Plots
 #Plot2 plots Global Active Powerto datetime
 #Change Global_active_power to numeric
-#Use hist with labels, no main label
+#Use lpot with labels
 #label x with Thu, Fri, Sat
 #save file as a png, close the connection 
 #################################
-
 #change variable Global_Active_power from chr to numeric
 tidy_data$Global_active_power <- as.numeric(as.character(tidy_data$Global_active_power))
-
-
-
-View(tidy_data)
 
 #Create the histogram with labels
 plot(tidy_data$datetime, tidy_data$Global_active_power,type="l",xlab= "", ylab = "Global Active Power (kilowatts)")

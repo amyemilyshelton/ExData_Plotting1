@@ -1,21 +1,4 @@
-#Plot 1 R script
-###############################
-#Step 1: Calculate rough estimate of memory usage
-#The website says the atributes are Real, so numeric, numeric data use 8 bytes 
-#per cell. In researching the different data types, time uses 3-5 bytes, 
-#dates use 4 bytes, so we will just use 8 bytes to estimate all of them
-#for the rough estimate, since the website says all are numeric data.
-#I will convert the date and times to date and time data later.
-#Referenced a lecture from Data Scientists Toolbox
-
-x <- 2075259*9*8  #calculate bytes
-y <- x/2^20 #calculate MB
-z <- y/2^10 #calculate GB
-z*2  #gives R twice the GB for memory usage
-
-#[1] 0.2783139
-#I will need .2783139 GB of memory. My computer is fine, it can handle it.
-
+#Plot 4 R script
 #Load the packages I will be using, tidyverse includes dplyr, lubridate
 #Load janitor to change the 
 library(tidyverse)
@@ -53,7 +36,12 @@ tidy_data$datetime <- with(tidy_data, as.POSIXct(paste(Date, Time),
 #Step 3 - make the Plots
 #Plot1 plots Golbal Avtive Power and frequency
 #Change Global_active_power to numeric
-#Use hist with labels
+#Change Global_reactive_power to numeric
+#Change Sub_metering_1 to numeric
+#Change Sub_metering_2 to numeric
+#Change Sub_metering_3 to numeric
+#Change Voltage to numeric
+#Use plot with labels
 #save file as a png, close the connection 
 #################################
 View(tidy_data)
@@ -66,12 +54,11 @@ tidy_data$Global_reactive_power <- as.numeric(as.character(tidy_data$Global_reac
 tidy_data$Voltage <- as.numeric(as.character(tidy_data$Voltage))
 
 str(tidy_data)
-
-#Create the the 4 plots, plot 2 and plot 3 plus 2 new plots
-#set up the screen to show 4 plots
-par(mfrow=c(2,2), mar=c(2, 4, .5,0.5))
 dev.off()
-#Upper left plot is plot 2, margins too large so used cex to resize
+#Create the the 4 plots, plot 2 and plot 3 plus 2 new plots
+#set up the screen to show 4 plots, change margins based on plots
+par(mfrow=c(2,2), mar=c(2, 4, .5,0.5))
+
 plot(tidy_data$datetime, tidy_data$Global_active_power,type="l",xlab= "", ylab = "Global Active Power")
 
 plot(tidy_data$datetime, tidy_data$Voltage, type="l", xlab="datetime", ylab="Voltage")
