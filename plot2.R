@@ -28,11 +28,10 @@ tidy_data <- filter(data2, Date == "1/2/2007" | Date == "2/2/2007")
 
 
 #Combine Date column and Time column into datetime column formatted as POSIXct
-tidy_data$datetime <- with(tidy_data, as.POSIXct(paste(Date, Time), 
+tidy_data$datetime <- with(tidy_data, as.POSIXlt(paste(Date, Time), 
                                                  format = "%d/%m/%Y %H:%M:%S"))
 
-
-
+#Check tomake sure it is in POSIXlt format
 str(tidy_data)
 ##################################
 #Step 3 - make the Plots
@@ -45,12 +44,13 @@ str(tidy_data)
 #change variable Global_Active_power from chr to numeric
 tidy_data$Global_active_power <- as.numeric(as.character(tidy_data$Global_active_power))
 
-#Create the histogram with labels
-plot(tidy_data$datetime, tidy_data$Global_active_power,type="l",xlab= "", ylab = "Global Active Power (kilowatts)")
-
-
 #Save the graph to a png file 480x480 pixels
 png(filename = "plot2.png", width=480, height=480)
 
+#Create the histogram with labels
+plot(tidy_data$datetime, tidy_data$Global_active_power,type="l",xaxt="n",xlab= "", ylab = "Global Active Power (kilowatts)")
+
+axis.POSIXct(1, x=tidy_data$datetime, format="%a")
+
+#Turn the saving connection off
 dev.off()
-plot.new()
