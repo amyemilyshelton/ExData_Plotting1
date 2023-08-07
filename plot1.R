@@ -58,13 +58,14 @@ tidy_data$datetime <- with(tidy_data, as.POSIXct(paste(Date, Time),
 #change variable Global_Active_power from chr to numeric
 tidy_data$Global_active_power <- as.numeric(as.character(tidy_data$Global_active_power))
 
+#Save the graph to a png file 480x480 pixels
+png(filename = "plot1.png", width=480, height=480, units="px")
 
 
 #Create the histogram with labels
 hist(tidy_data$Global_active_power,col ="red", main="Global Active Power", xlab = "Global Active Power (kilowatts)", ylab = "Frequency")
 
-#Save the graph to a png file 480x480 pixels
-png(filename = "plot1.png", width=480, height=480)
+
 
 #Close the save connection
 dev.off()
