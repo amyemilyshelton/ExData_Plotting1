@@ -46,14 +46,16 @@ tidy_data$Global_active_power <- as.numeric(as.character(tidy_data$Global_active
                                           
 tidy_data$datetime <- strptime(paste(tidy_data$Date,tidy_data$Time), "%d/%m/%Y %H:%M:%S")
 
+#Save the graph to a png file 480x480 pixels
+png(filename = "plot2.png", width=480, height=480, units="px")
+
 #Create the histogram with labels
 plot(tidy_data$datetime, tidy_data$Global_active_power,type="l",xaxt="n",xlab= "", ylab = "Global Active Power (kilowatts)")
 
 r <- as.POSIXct(round(range(tidy_data$datetime),"days"))
 axis.POSIXct(1, at=seq(r[1],r[2],by="days"),format="%a")
 
-#Save the graph to a png file 480x480 pixels
-png(filename = "plot2.png", width=480, height=480)
+
 
 #Turn the saving connection off
 dev.off()

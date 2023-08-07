@@ -57,6 +57,9 @@ tidy_data$datetime <- strptime(paste(tidy_data$Date,tidy_data$Time), "%d/%m/%Y %
 
 str(tidy_data)
 
+#Save the graph to a png file 480x480 pixels
+png(filename = "plot4.png", width=480, height=480, units="px")
+
 #Create the the 4 plots, plot 2 and plot 3 plus 2 new plots
 #set up the screen to show 4 plots, change margins based on plots
 par(mfrow=c(2,2), mar=c(2, 4, .5,0.5))
@@ -84,6 +87,5 @@ plot(tidy_data$datetime, tidy_data$Global_reactive_power, type="l", xaxt="n", xl
 r <- as.POSIXct(round(range(tidy_data$datetime),"days"))
 axis.POSIXct(1, at=seq(r[1],r[2],by="days"),format="%a")
 
-#Save the graph to a png file 480x480 pixels
-png(filename = "plot4.png", width=480, height=480)
+
 dev.off()
