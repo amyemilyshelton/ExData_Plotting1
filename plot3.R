@@ -47,13 +47,18 @@ tidy_data$Sub_metering_1 <- as.numeric(as.character(tidy_data$Sub_metering_1))
 tidy_data$Sub_metering_2 <- as.numeric(as.character(tidy_data$Sub_metering_2))
 tidy_data$Sub_metering_3 <- as.numeric(as.character(tidy_data$Sub_metering_3))
 
+
+
 #Create the time series graph with labels
 
-plot(tidy_data$datetime, tidy_data$Sub_metering_1, type="l", ylab="Energy Submetering", xlab="")
+plot(tidy_data$datetime, tidy_data$Sub_metering_1, type="l", xaxt="n" , xlab="", ylab="Energy Submetering")
 lines(tidy_data$datetime, tidy_data$Sub_metering_2, type="l", col="red")
 lines(tidy_data$datetime, tidy_data$Sub_metering_3, type="l", col="blue")
 legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty=1, lwd=2.5, col=c("black", "red", "blue"))
+axis.POSIXct(1, x=tidy_data$datetime, format="%a")
 
 #Save the graph to a png file 480x480 pixels
-png(filename = "plot1.png", width=480, height=480)
+png(filename = "plot3.png", width=480, height=480)
+
+#Close the connect to save
 dev.off()
